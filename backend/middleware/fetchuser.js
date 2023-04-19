@@ -14,4 +14,5 @@ const fetchuser = (req, res, next) => {
         res.status(401).send({ errors: "Invalid token" });
     }
 }
+
 module.exports = fetchuser;

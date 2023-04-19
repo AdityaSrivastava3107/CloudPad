@@ -36,7 +36,7 @@ router.post('/createuser', [
     // authentication token
     const data = {
       user: {
-        id: user.id
+        id: user._id
       }
     }
     const authtoken = jwt.sign(data, JWT_SECRET);
@@ -59,10 +59,10 @@ router.post('/login', [
     return res.status(400).json({ errors: errors.array() });
   }
   // Extracting pass and id from req.body
-  const { email } = req.body;
+  const { email, password } = req.body;
   // checking is the user is giving correct details for
   try {
-    let user = User.findOne({ email });
+    let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ errors: "Login with correct credentials" });
     }
@@ -70,12 +70,12 @@ router.post('/login', [
       const match = bcrypt.compare(password, user.password);
       return match;
     }
-    if (!passCompare) {
+    if (!passCompare(password)) {
       return res.status(400).json({ errors: "Login with correct credentials" });
     }
     const data = {
       user: {
-        id: user.id
+        id: user._id
       }
     }
     const authtoken = jwt.sign(data, JWT_SECRET);
@@ -91,8 +91,8 @@ router.post('/login', [
 router.post('/getuser', fetchuser, async (req, res) => {
 
   try {
-    const userId = res.user;
-    const user = await User.findOne({ userId }).select("-password");
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
     res.send(user)
   } catch (error) {
     console.error(error.message);
