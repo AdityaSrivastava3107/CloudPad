@@ -1,53 +1,26 @@
 import NoteContext from "./noteContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
+const NoteState = (props) => {
+  const [notes, setNotes] = useState([]);
 
-const NoteState = (props)=>{
-    const notesInitial = [
-        {
-          "_id": "61322f19553781a8ca8d0e06",
-          "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
-          "date": "2021-09-03T14:20:09.509Z",
-          "__v": 0
-        },
-        {
-          "_id": "61322f19553781a8ca8d0e08",
-          "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
-          "date": "2021-09-03T14:20:09.668Z",
-          "__v": 0
-        },
-        {
-          "_id": "61322f19553781a8ca8d0e08",
-          "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
-          "date": "2021-09-03T14:20:09.668Z",
-          "__v": 0
-        },
-        {
-          "_id": "61322f19553781a8ca8d0e08",
-          "user": "6131dc5e3e4037cd4734a066",
-          "title": "My Title",
-          "description": "Please wake up early",
-          "tag": "personal",
-          "date": "2021-09-03T14:20:09.668Z",
-          "__v": 0
-        },
-      ]
-      const [notes, setNotes] = useState(notesInitial)
-
-    
-    return (
-        <NoteContext.Provider value={{notes, setNotes}}>
-            {props.children}
-        </NoteContext.Provider>
-    )
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response  = await axios.get('http://localhost:5000/api/notes/fetchallnotes', { headers: { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzZWFmZDg5ZTg5YzI5YzBmMjA0ZDc2In0sImlhdCI6MTY4MTgyOTg2NH0.5M1KC3RHcKxaURz-QEETIChLhhEXs3MFfS-P5kAvQUk' } })
+      setNotes(response.data)
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }
+    fetchData()
+  }, []);
+  return (
+    <NoteContext.Provider value={{ notes, setNotes }}>
+      {props.children}
+    </NoteContext.Provider>
+  )
 }
 
 export default NoteState;                                        

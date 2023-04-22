@@ -1,6 +1,20 @@
 import React from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+const Login = (props) => {
+    const navigate= useNavigate();
 
-const Login = () => {
+    function userLogin(event) {
+        event.preventDefault();
+        axios.post('http://localhost:5000/api/auth/login')
+            .then((response) => {
+                localStorage.setItem('authtoken', response.data.authtoken);
+                navigate('/');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     return (
         <div className="container my-5" style={{ width:'300px'}}>
             <form>
@@ -17,7 +31,7 @@ const Login = () => {
                     <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                     <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
                 </div>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button type="submit" className="btn btn-primary" onClick={userLogin}>Login</button>
             </form>
         </div>
     )

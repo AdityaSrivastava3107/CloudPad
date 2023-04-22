@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 const Navbar = () => {
     let location = useLocation();
-    //Used redirect components
-    let navigate = useNavigate();
+
     useEffect(() => {
         console.log(location.pathname)
     }, [location]);
-    const login = (e)=>{
+
+    //Used redirect components
+    let navigate = useNavigate();
+    const login = (e) => {
         e.preventDefault()
-        navigate("/login")   
+        navigate("/login")
     }
-    const signup = (e)=>{
+    const signup = (e) => {
         e.preventDefault()
-        navigate("/signup")   
+        navigate("/signup")
     }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#2A2F4F' }}>
@@ -34,8 +36,8 @@ const Navbar = () => {
 
                     </ul>
                     <form className="d-flex">
-                        <button className="btn btn-outline-primary mx-2" onClick = {signup} type="submit">Sign Up</button>
-                        <button className="btn btn-outline-primary mx-2" onClick = {login} type="submit">Login</button>
+                        <button className="btn btn-outline-primary mx-2" onClick={signup} type="submit">Sign Up <i className="fa-regular fa-user" ></i></button>
+                        <button className="btn btn-outline-primary mx-2" onClick={login} type="submit">Login <i className="fa-solid fa-right-to-bracket"></i></button>
                     </form>
                 </div>
             </div>
