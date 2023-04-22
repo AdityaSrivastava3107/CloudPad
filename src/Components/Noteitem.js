@@ -2,10 +2,15 @@ import React from 'react'
 import axios from 'axios'
 
 const Noteitem = (props) => {
+    const token = localStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
     const { note } = props
     const delNote = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/notes/deletenote/${note._id}`, { headers: { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzZWFmZDg5ZTg5YzI5YzBmMjA0ZDc2In0sImlhdCI6MTY4MTgyOTg2NH0.5M1KC3RHcKxaURz-QEETIChLhhEXs3MFfS-P5kAvQUk' } })
+            await axios.delete(`http://localhost:5000/api/notes/deletenote/${note._id}`, { headers })
 
         } catch (error) {
             console.log(error);

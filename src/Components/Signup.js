@@ -17,7 +17,7 @@ const Signup = () => {
         })
             .then((response) => {
                 // Handle the response from the backend API
-                localStorage.setItem('authtoken', response.data.authtoken);
+                localStorage.setItem('auth-token', response.data.authtoken);
                 navigate('/');
             })
             .catch((error) => {
