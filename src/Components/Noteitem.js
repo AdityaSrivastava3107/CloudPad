@@ -3,7 +3,6 @@ import axios from 'axios'
 
 const Noteitem = (props) => {
     const token = localStorage.getItem('auth-token');
-
     const headers = {
       'auth-token' :  token
     };
@@ -11,7 +10,7 @@ const Noteitem = (props) => {
     const delNote = async () => {
         try {
             await axios.delete(`http://localhost:5000/api/notes/deletenote/${note._id}`, { headers })
-
+              
         } catch (error) {
             console.log(error);
         }
