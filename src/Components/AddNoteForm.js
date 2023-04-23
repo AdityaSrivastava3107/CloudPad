@@ -1,14 +1,17 @@
 import React from 'react'
 import axios from 'axios'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const AddNoteForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tag, setTag] = useState('');
+
   const token = localStorage.getItem('auth-token');
+  const navigate = useNavigate()
 
   const headers = {
-    Authorization: `Bearer ${token}`
+    'auth-token': token
   };
 
   const handleSubmit = (event) => {
@@ -17,7 +20,7 @@ const AddNoteForm = () => {
     axios.post('http://localhost:5000/api/notes/addnote', { title, description, tag }, { headers })
       .then((response) => {
         // Handle the response from the backend API
-        localStorage.setItem('authtoken', response.data.authtoken);
+        navigate('/');
         console.log(response.data);
       })
       .catch((error) => {
@@ -27,12 +30,24 @@ const AddNoteForm = () => {
   }
   return (
     <form onSubmit={handleSubmit}>
-        <div className="mb-3" >
-          <label htmlFor="exampleInputEmail1" className="form-label">Add a new Note.</label>
-          <textarea className="form-control" rows="10"></textarea>
-          </div>
-        <button type="button" className="btn btn-outline-primary my-1" onClick={handleSubmit} style={{ textAlign: 'center' }}>Add</button>
-        </form>
+      <div className="container my-2" style={{ width: '500px' }}>
+        <label htmlFor="title">Title:</label>
+        <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)}  style={{ width: '300px' }}/>
+      </div>
+
+      <div className="container my-2"  style={{ width: '1000px' }}>
+        <label htmlFor="description">Description:</label>
+        <textarea id="description " rows='10' name="description" value={description} onChange={(e) => setDescription(e.target.value)}  style={{ width: '1000px' }}/>
+      </div>
+
+      <div className="container my-2" style={{ width: '500px' }}>
+        <label htmlFor="tag">Tag:</label>
+        <input type="text" id="tag" name="tag" value={tag} onChange={(e) => setTag(e.target.value)}  style={{ width: '300px' }}/>
+      </div>
+
+
+      <button type="button" onClick= {handleSubmit} class="btn btn-outline-primary">Add Note</button>
+    </form>
   )
 }
 

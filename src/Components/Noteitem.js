@@ -2,10 +2,10 @@ import React from 'react'
 import axios from 'axios'
 
 const Noteitem = (props) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('auth-token');
 
     const headers = {
-      Authorization: `Bearer ${token}`
+      'auth-token' :  token
     };
     const { note } = props
     const delNote = async () => {

@@ -32,7 +32,9 @@ const Login = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                    <div>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </div>
                 </div>
                 <div className="mb-3 form-check">
                     <input type="checkbox" className="form-check-input" id="exampleCheck1" />
