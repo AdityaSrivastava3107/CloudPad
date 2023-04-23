@@ -1,12 +1,12 @@
 import React from 'react'
 import Notes from './Notes'
 import AddNoteForm from './AddNoteForm'
-const Home = () => {
+const Home = (props) => {
   return (
     <div className="container my-2" style={{ textAlign: 'center' }}>
       <h2 >Welcome to CloudPad!</h2>
       <AddNoteForm />
-      <Notes />
+      <Notes/>
     </div>
   )
 }

@@ -4,7 +4,15 @@ import axios from 'axios';
 const NoteState = (props) => {
   const [notes, setNotes] = useState([]);
   const token = localStorage.getItem('auth-token');
- 
+  
+  const [alert, setAlert] = useState(null)
+   
+  const showAlert=(message)=>{
+       setAlert({
+        msg : message
+       })
+  }
+  
   useEffect(() => {
     const fetchData = async () => {
       
@@ -22,8 +30,10 @@ const NoteState = (props) => {
     }
     fetchData()
   }, []);
+
+  
   return (
-    <NoteContext.Provider value={{ notes, setNotes }}>
+    <NoteContext.Provider value={{ notes, setNotes, alert, showAlert }}>
       {props.children}
     </NoteContext.Provider>
   )

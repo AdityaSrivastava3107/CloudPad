@@ -31,6 +31,7 @@ const AddNoteForm = () => {
       });
   }
   return (
+    <div className="container my-4">
     <form onSubmit={handleSubmit}>
       <div className="container my-2" style={{ width: '500px' }}>
         <label htmlFor="title">Title:</label>
@@ -48,8 +49,9 @@ const AddNoteForm = () => {
       </div>
 
 
-      <button type="button" onClick= {handleSubmit} class="btn btn-outline-primary">Add Note</button>
+      <button type="button" onClick= {handleSubmit} className="btn btn-outline-primary">Add Note</button>
     </form>
+    </div>
   )
 }
 
